@@ -15,9 +15,6 @@ void setup()
   Serial.begin(115200);
   ss.begin(9600);//default 4800 pero neo6 trabaja en 9600
   
-  Serial.print("Simple TinyGPS library v. "); Serial.println(TinyGPS::library_version());
-  Serial.println("by Mikal Hart");
-  Serial.println();
 }
 
 void loop()
@@ -44,16 +41,16 @@ void loop()
     unsigned long age;
     gps.f_get_position(&flat, &flon, &age);//se guardan los valores importantes en flat,flon
     //Serial.print("LAT=");
-    //Serial.print(flat == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flat, 6);
-    String lat=String(flat);
-    //Serial.print(",");
-    //Serial.print(flon == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flon, 6);
-    String lon=String(flon);
+    Serial.print(flat == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flat, 6);
+    //String lat=String(flat);
+    Serial.print(",");
+    Serial.print(flon == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flon, 6);
+    //String lon=String(flon);
     //Serial.print(" SAT=");
     //Serial.print(gps.satellites() == TinyGPS::GPS_INVALID_SATELLITES ? 0 : gps.satellites());
     //Serial.print(" PREC=");
     //Serial.print(gps.hdop() == TinyGPS::GPS_INVALID_HDOP ? 0 : gps.hdop());
-    Serial.println(lat+","+lon+",break");
+    Serial.println();
   }
   
   gps.stats(&chars, &sentences, &failed);
