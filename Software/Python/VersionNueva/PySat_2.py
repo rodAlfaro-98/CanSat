@@ -8,6 +8,7 @@ from matplotlib.figure import Figure
 import matplotlib.animation as animation
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from GraficaTxt_2 import GText
+from time import sleep
 import sys
 import _thread as thread
 
@@ -45,19 +46,18 @@ a1, = ay.plot([],[],'g-')
 a2, = az.plot([],[],'m-')
 a3, = aw.plot(0,2,'co')
 
-#plt.subplots_adjust(hspace=0.90,wspace=0.90)
-
 if __name__ == '__main__':
 	app = apk.Aplicacion(fig)
 	app.start()
 	#try:
 	if app.getEstado():
 		print("Ajua")
-		analogPlot = anaplt.AnalogPlot(10)
+		analogPlot = anaplt.AnalogPlot(10,app.doc)
 		app.setAnalogPlot(analogPlot)
-		thread.start_new_thread(app.analogPlot.getData,())
-		#thread.start_new_thread(app.analogPlot.writeInDoc,())
+		#thread.start_new_thread(app.analogPlot.getData,())
 		anim = animation.FuncAnimation(fig, app.analogPlot.update, fargs=(a0, a1, a2, a3), interval=1)
+		sleep(5)
+		#thread.start_new_thread(app.analogPlot.writeInDoc,())
 	#except:
 		#print("Qiubo")
 		#sys.exit()

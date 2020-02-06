@@ -13,7 +13,7 @@ SoftwareSerial ss(3, 4);
 void setup()
 {
   Serial.begin(115200);
-  ss.begin(9600);//default 4800 pero neo6 trabaja en 9600
+  ss.begin(9600);//default 4800 pero neo6 trabaja en 9600 (GPS)
   
 }
 
@@ -26,7 +26,7 @@ void loop()
   // For one second we parse GPS data and report some key values
   for (unsigned long start = millis(); millis() - start < 1000;)
   {
-    while (ss.available())
+    while (ss.available()) //Still conection with port
     {
       char c = ss.read();
       // Serial.write(c); // uncomment this line if you want to see the GPS data flowing

@@ -58,10 +58,12 @@ class Aplicacion(tk.Tk):
 	def restart(self):
 		self.doc+=1
 		try:
+			self.analogPlot.stopThread()
 			self.analogPlot.port.close()
 			self.NewFile()
 			self.analogPlot.port.open()
 			self.alaogPort.setDoc(self.doc)
+			self.analogPlot.startThread()
 		except:
 			self.NewFile()
 			#pass
@@ -73,6 +75,8 @@ class Aplicacion(tk.Tk):
 	"""
 	def start(self):
 		self.estado = True
+		if(self.analogPlot != None):
+			self.analogPlot.startThread()
 		return True
 
 	"""
@@ -81,7 +85,7 @@ class Aplicacion(tk.Tk):
 	def finish(self):
 		global estado
 		try:
-			self.analogPlot.port.close()
+			self.analogPlot.finishThread()
 			self.estado = False
 		except:
 			pass
@@ -95,6 +99,7 @@ class Aplicacion(tk.Tk):
 	def NewFile(self):
 		with open('Datos{}.txt'.format(self.doc),'w') as f:
 			f.write('')
+			f.close()
 			
 	def setAnalogPlot(self, analogPlot):
 		self.analogPlot = analogPlot
